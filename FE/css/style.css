@@ -1,0 +1,396 @@
+/* ===========================
+   Base / Reset
+   =========================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #fff;
+    font-family:
+        "Pretendard",
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+    color: #3e2723;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===========================
+   Typography
+   =========================== */
+
+.page-title {
+    font-family: "Paperlogy", "Pretendard", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.preview-title {
+    font-family: "Paperlogy", "Pretendard", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* ===========================
+   Animations
+   =========================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================
+   Student Page
+   =========================== */
+
+.student-page {
+    display: flex;
+    flex-direction: row;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 100vh;
+    align-items: center;
+    gap: 0;
+}
+
+/* Form Section */
+.form-section {
+    flex: 1;
+    max-width: 420px;
+    padding-right: 40px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid #e0d6cc;
+    background: #ffffff;
+    font-family: "Pretendard", sans-serif;
+    font-size: 15px;
+    color: #3e2723;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    border-color: #ff7043;
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group textarea::placeholder {
+    color: #bcaaa4;
+}
+
+.image-picker {
+    display: block;
+    background: #f5f0eb;
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #8d6e63;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.image-picker:hover {
+    background: #ede7e0;
+}
+
+.form-group textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+.char-count {
+    text-align: right;
+    font-size: 13px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #ff7043;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-family: "Pretendard", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.submit-btn:hover {
+    background: #f4511e;
+}
+
+/* Divider */
+.divider {
+    width: 1px;
+    align-self: stretch;
+    background: #e0d6cc;
+}
+
+/* Preview Section */
+.preview-section {
+    flex: 1;
+    max-width: 420px;
+    padding-left: 40px;
+}
+
+/* ===========================
+   Preview / Message Card
+   =========================== */
+
+.preview-card,
+.message-card {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    animation: fadeInUp 0.4s ease;
+}
+
+.preview-card:hover,
+.message-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f5f0eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 150px;
+    object-fit: contain;
+}
+
+.card-image img.uploaded {
+    width: 100%;
+    height: 100%;
+    min-height: 150px;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+/* Teacher page card image wrapper (contains img + download btn) */
+.card-image-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.card-img {
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 150px;
+    object-fit: contain;
+}
+
+.card-img.uploaded-img {
+    width: 100%;
+    height: 100%;
+    min-height: 150px;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 16px;
+}
+
+.card-name {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.card-message {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #5d4037;
+    word-break: break-word;
+}
+
+/* ===========================
+   Teacher Page
+   =========================== */
+
+.teacher-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.teacher-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.teacher-header h1 {
+    font-family: "Paperlogy", "Pretendard", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.teacher-header p {
+    color: #8d6e63;
+    font-size: 1.1rem;
+    margin-top: 8px;
+}
+
+.save-all-btn {
+    background: #ff7043;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-family: "Pretendard", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background 0.2s;
+}
+
+.save-all-btn:hover {
+    background: #f4511e;
+}
+
+/* Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* Message Card (teacher page) */
+.message-card {
+    position: relative;
+}
+
+.card-download-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    transition:
+        background 0.2s,
+        transform 0.2s;
+}
+
+.card-download-btn:hover {
+    background: #ffffff;
+    transform: scale(1.1);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px;
+    color: #999;
+    grid-column: span 3;
+    font-size: 15px;
+}
+
+/* ===========================
+   Responsive - Tablet
+   =========================== */
+
+@media (max-width: 768px) {
+    .student-page {
+        flex-direction: column;
+    }
+
+    .form-section,
+    .preview-section {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .divider {
+        width: 100%;
+        height: 1px;
+        margin: 24px 0;
+    }
+
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .empty-state {
+        grid-column: span 2;
+    }
+}
+
+/* ===========================
+   Responsive - Mobile
+   =========================== */
+
+@media (max-width: 480px) {
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .empty-state {
+        grid-column: span 1;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+    }
+}

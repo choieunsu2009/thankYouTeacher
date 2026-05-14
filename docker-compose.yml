@@ -1,0 +1,44 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: rolling-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rolling1234
+      MYSQL_DATABASE: rolling_paper
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./BE/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rolling-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: rolling1234
+      DB_NAME: rolling_paper
+      DB_PORT: 3306
+      PORT: 3000
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads_data:/app/BE/uploads
+
+volumes:
+  db_data:
+  uploads_data:

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스승의 날 롤링페이퍼</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container student-page">
+    <div class="form-section">
+      <h1 class="page-title">스승의 날 롤링페이퍼</h1>
+      <form id="messageForm">
+        <div class="form-group">
+          <input type="text" id="name" placeholder="이름" maxlength="50" required>
+        </div>
+        <div class="form-group">
+          <label for="image" class="image-picker">
+            <span id="imageLabel">이미지 선택하기</span>
+          </label>
+          <input type="file" id="image" accept="image/*" hidden>
+        </div>
+        <div class="form-group">
+          <input type="text" id="code" placeholder="개인식별번호" maxlength="6" required>
+        </div>
+        <div class="form-group">
+          <textarea id="message" placeholder="전달할 말" maxlength="400" required></textarea>
+          <div class="char-count"><span id="charCount">0</span>/400</div>
+        </div>
+        <button type="submit" class="submit-btn">전달하기</button>
+      </form>
+    </div>
+    <div class="divider"></div>
+    <div class="preview-section">
+      <h2 class="preview-title">미리보기</h2>
+      <div class="preview-card">
+        <div class="card-image">
+          <img id="previewImage" src="assets/carnation.png" alt="미리보기">
+        </div>
+        <div class="card-content">
+          <p class="card-name" id="previewName">이름</p>
+          <p class="card-message" id="previewMessage">전달할 말</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/student.js"></script>
+</body>
+</html>

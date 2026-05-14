@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>스승의 날 롤링페이퍼</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container teacher-page" id="captureArea">
+    <div class="teacher-header">
+      <h1 class="page-title">스승의 날 롤링페이퍼</h1>
+      <p class="teacher-subtitle">항상 감사합니다! 앞으로도 잘 부탁드립니다 -2학년 2반 일동</p>
+      <button class="save-all-btn" id="saveAllBtn" onclick="saveFullPage()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;vertical-align:middle;">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        전체 저장
+      </button>
+    </div>
+    <div class="cards-grid" id="cardsGrid">
+      <!-- Cards will be injected here by JS -->
+    </div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <img src="assets/carnation.png" alt="카네이션" style="width:80px;opacity:0.5;margin-bottom:16px;">
+      <p>아직 전달된 메시지가 없습니다</p>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="js/teacher.js"></script>
+</body>
+</html>
