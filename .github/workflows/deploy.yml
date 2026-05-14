@@ -17,12 +17,36 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          script_stop: true
           script: |
+            set -e
             export PATH=$PATH:/usr/local/bin:/usr/bin
 
-            # 프로젝트 디렉토리 초기 설정
+            # Docker 설치 (없으면)
+            if ! command -v docker &> /dev/null; then
+              echo "=== Installing Docker ==="
+              curl -fsSL https://get.docker.com | sudo sh
+              sudo systemctl enable docker
+              sudo systemctl start docker
+            fi
+            echo "Docker: $(sudo docker --version)"
+
+            # Docker Compose plugin 확인
+            if ! sudo docker compose version &> /dev/null; then
+              echo "=== Installing Docker Compose plugin ==="
+              sudo apt-get update && sudo apt-get install -y docker-compose-plugin
+            fi
+
+            # Node.js 설치 (없으면 - Dockerfile 빌드에 필요하진 않지만 향후 유지보수용)
+            if ! command -v node &> /dev/null; then
+              echo "=== Installing Node.js 20.x ==="
+              curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+            echo "Node: $(node -v)"
+
+            # 프로젝트 클론/업데이트
             if [ ! -d ~/03_rolling/.git ]; then
-              mkdir -p ~/03_rolling
               git clone https://github.com/${{ github.repository }}.git ~/03_rolling
             fi
 
@@ -30,39 +54,9 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            # Docker 확인 및 실행
-            if command -v docker &> /dev/null; then
-              docker compose down || true
-              docker compose up -d --build
-              sleep 10
-              docker compose ps
-              docker compose logs --tail=30 app
-            else
-              echo "=== Docker not found. Deploying with Node.js directly ==="
-
-              # Node.js 확인
-              if ! command -v node &> /dev/null; then
-                echo "ERROR: Node.js is not installed on the server."
-                exit 1
-              fi
-
-              cd BE
-              npm install --production
-
-              # 기존 프로세스 종료
-              pkill -f "node.*server.js" || true
-              sleep 1
-
-              # PM2가 있으면 PM2로, 없으면 nohup으로 실행
-              if command -v pm2 &> /dev/null; then
-                pm2 delete rolling-paper || true
-                pm2 start server.js --name rolling-paper
-                pm2 save
-                pm2 logs rolling-paper --lines 10 --nostream
-              else
-                nohup node server.js > ../server.log 2>&1 &
-                echo "Server started with PID: $!"
-                sleep 2
-                tail -5 ../server.log
-              fi
-            fi
+            # Docker Compose로 배포
+            sudo docker compose down || true
+            sudo docker compose up -d --build
+            sleep 10
+            sudo docker compose ps
+            sudo docker compose logs --tail=30 app
